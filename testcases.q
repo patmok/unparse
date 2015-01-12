@@ -3,7 +3,7 @@ t:([]date:5#.z.d;x:til 5;y:10*til 5;z:1 1 2 2 2)
 tests:()
 add:{tests,:enlist(),x}
 test:{test0[]|test0[]}
-test0:{tests!@[{p~parse unparse p:parse x};;0b]each tests}            / this is harder to pass
+test0:{tests!@[{p~parse unparse p:parse x};;0b]each tests}
 add 1#"1"
 add 1#"t"
 add"flip(1 2 3;3 4 5)"
