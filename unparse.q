@@ -8,7 +8,7 @@
 unparse:{$[sql x;sql0 x;break x;disp[first x;str first x;.z.s each 1_x];vchar x;str first x;str x]}
 disp:{[f;x;y]$[101h=t:type f;dmonad f;(2=count y)&102h=t;dinfix;dother][x;y]} / display
 dmonad:{[f;x;y]$[(f~(::))|enlist~f;dother[x;y];x," ",raze y]}
-dinfix:{$[""~y 0;dother;first[x]in"+-*%~!@#$^&|<>,?:";dwrap"";dwrap" "][x;y]}
+dinfix:{$[""~y 0;dother;last[x]in"+-*%~!@#$^&|<>,?:";dwrap"";dwrap" "][x;y]}
 dother:{x,"[",(";"sv y),"]"}
 dwrap:{[d;x;y]"(",(d sv(y 0;x;y 1)),")"}
 break:{$[type x;0b;vchar x;0b;not x~()]}
@@ -16,7 +16,7 @@ achar:(1#-11h)~type'  / char atom?
 vchar:(1# 11h)~type'  / char vector?
 str:{str0 keyw x}     / string
 str0:{(raze/)$[not -11h=type x;strop x;x in key .q;string x;strop x]}
-strop:{$[x~();"()";type x;s1 x;103h=type first x;.z.s'[1_x],s1 first x;.z.s[first x],$[count 1_x;"[",s1'[1_x],"]";""]]}
+strop:{$[x~();"()";x~(:);" :";type x;s1 x;103h=type first x;.z.s'[1_x],s1 first x;.z.s[first x],$[count 1_x;"[",s1'[1_x],"]";""]]}
 s1:{$[proj x;"";-11h=type x;string x;achar[x]|vchar x;.Q.s1 first x;any m:keyw0 x;string first where m;.Q.s1 x]}
 keyw:{$[proj x;x;any m:keyw0 x;first where m;x]} / keyword? e.g. flip
 keyw0:{x~/:comp,(1_where 102h<>type each .q)#.q}
