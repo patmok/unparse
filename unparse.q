@@ -27,6 +27,7 @@ proj:{104h=type(0;x)} / projection? function courtesy of Kieran Lucid
 sql:{$[proj f:first x;0b;not any(?;!)~\:f;0b;not count[x]in 5 6;0b;proj x 2;0b;x~();1b;not enlist~first x 2]}
 sql0:{" "sv{x where 0<count each x}(sqlf x;sqln x 5;sqla x 4;sqlb x 3;"from";unparse x 1;sqlc x 2)}
 sqlf:{$[(?)~first x;$[1b~x 3;"select distinct";not(::)~x 5;"select";(3#())~x 2 3 4;"exec";()~x 4;"select";"exec"];11h=abs type first x 4;"delete";"update"]}
+sqlf:{$[(?)~first x;$[1b~x 3;"select distinct";not(::)~x 5;"select";(3#())~x 2 3 4;"exec";(0b~x 3)|()~x 4;"select";"exec"];11h=abs type first x 4;"delete";"update"]}
 sqla:{$[11h=type x;"";type x;","sv get string[key x],'":",'unparse each x;(11h=type first x)&1=count x;","sv string first x;count x;unparse first x;""]}
 sqlb:{$[-1h=type x;"";x~();"";"by ",sqla x]}
 sqlc:{$[x~();"";"where ",","sv unparse each first x]}
