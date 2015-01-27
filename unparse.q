@@ -7,7 +7,7 @@
 \d .unparse
 unparse:{$[sql x;sql0 x;break x;disp[first x;str first x;.z.s each 1_x];vchar x;str first x;str x]}
 disp:{[f;x;y]$[101h=t:type f;dmonad f;(2=count y)&102h=t;dinfix;dother][x;y]} / display
-dmonad:{[f;x;y]$[(f~(::))|enlist~f;dother[x;y];x," ",raze y]}
+dmonad:{[f;x;y]$[(2=count y)|(f~(::))|enlist~f;dother[x;y];x," ",raze y]}
 dinfix:{$[""~y 0;dother;last[x]in"+-*%~!@#$^&|<>,?:";dwrap"";dwrap" "][x;y]}
 dother:{x,"[",(";"sv y),"]"}
 dwrap:{[d;x;y]"(",(d sv(y 0;x;y 1)),")"}

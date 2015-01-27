@@ -58,4 +58,6 @@ add"delete from t where z=2"
 add"delete from t"
 add"delete x from t"
 add"delete from delete c,x from update c:sum x by z from select from t where 1b"
+add"x+:1"
+add"x*:9"
 \d .
