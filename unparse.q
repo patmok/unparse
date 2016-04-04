@@ -1,9 +1,6 @@
-/ should return same parse tree - {p~parse unparse p:parse x}"1+2 3"
-/ if not let me know
-/ example
+/ should return same parse tree -> {p~parse unparse p:parse x}"1+2 3"
 / q).unparse.unparse parse"1+/:1 2 3*5"
 / "+/:[1;(1 2 3*5)]"
-/ written by Patrick Mok
 \d .unparse
 unparse:{$[sql x;sql0 x;break x;disp[first x;str first x;.z.s each 1_x];vchar x;str first x;str x]}
 disp:{[f;x;y]$[101h=t:type f;dmonad f;(2=count y)&102h=t;dinfix;dother][x;y]} / display
