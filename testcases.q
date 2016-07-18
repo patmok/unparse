@@ -70,4 +70,5 @@ add"select[1;<x]from t"
 add"select[0W;>x]from t"
 add"select[0W]from t"
 add"select[1+{count x}x+1;>x+1]from t"
+add"?[t;();0b;(enlist c)!enlist c]"
 \d .
