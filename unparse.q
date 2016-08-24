@@ -2,7 +2,7 @@
 / q).unparse.unparse parse"1+/:1 2 3*5"
 / "+/:[1;(1 2 3*5)]"
 \d .unparse
-unparse:{$[sql x;sql0 x;break x;disp[first x;str first x;.z.s each 1_x];vchar x;str first x;str x]};
+unparse:{$[tab x;tab0 x;sql x;sql0 x;break x;disp[first x;str first x;.z.s each 1_x];vchar x;str first x;str x]};
 disp:{[f;x;y]$[101h=t:type f;dmonad f;(2=count y)&102h=t;dinfix;dother][x;y]}; / display
 dmonad:{[f;x;y]$[(2=count y)|(f~(::))|enlist~f;dother[x;y];x," ",raze y]};
 dinfix:{$[""~y 0;dother;last[x]in"+-*%~!@#$^&|<>,?:";dwrap"";dwrap" "][x;y]};
@@ -29,4 +29,14 @@ sqlb:{$[-1h=type x;"";x~();"";"by ",sqla x]};
 sqlc:{$[x~();"";"where ",","sv unparse each first x]};
 / assumes 6th arg is 2 element tuple, first is either > or <
 sqln:{[n;o]{$[count x;"[",x,"]";""]}{$[count x;x,";",y;y]}.($[n~(::);"";not[(::)~first o]&n~0W;"";unparse n];$[(::)~o:first o;"";(1#string first o),unparse last o])};
+
+/ table creation syntax needs special handling e.g. ([]1 2 3)
+tab:{$[type x;0b;2<>count x;0b;not(+:)~first x;0b;type lx:last x;0b;3<>count lx;0b;not(!)~first lx;0b;
+       not vchar lx 1;0b;type lx@:2;0b;not(enlist)~first lx;0b;count[lx]=1+count x . 1 1 0]};
+tab0:{x:1 _ last x; / discard +: and !
+      c:2 first/x;  / column names
+      v:last x;     / values
+      u:";"sv 1_(string each`,c),'":",'unparse each v;
+      :"([]",u,")";
+     };
 \d .
