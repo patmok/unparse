@@ -73,4 +73,5 @@ add"select[1+{count x}x+1;>x+1]from t"
 add"?[t;();0b;(enlist c)!enlist c]"
 add"([]())"
 add"([]1 2)"
+add"([]1 2;3)"
 \d .

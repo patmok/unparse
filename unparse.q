@@ -7,7 +7,7 @@ disp:{[f;x;y]$[101h=t:type f;dmonad f;(2=count y)&102h=t;dinfix;dother][x;y]}; /
 dmonad:{[f;x;y]$[(2=count y)|(f~(::))|enlist~f;dother[x;y];x," ",raze y]};
 dinfix:{$[""~y 0;dother;last[x]in"+-*%~!@#$^&|<>,?:";dwrap"";dwrap" "][x;y]};
 dother:{x,"[",(";"sv y),"]"};
-dwrap:{[d;x;y]"(",(d sv(y 0;x;y 1)),")"};
+dwrap:{[d;x;y]d sv({f:first p:parse x;$[$[101h=t:type f;0;(3=count p)&102h=t;0;1];x;"(",x,")"]}y 0;x;y 1)};
 break:{$[type x;0b;vchar x;0b;not x~()]};
 achar:(1#-11h)~type';  / char atom?
 vchar:(1# 11h)~type';  / char vector?
