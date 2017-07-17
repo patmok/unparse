@@ -2,12 +2,15 @@
 / q).unparse.unparse parse"1+/:1 2 3*5"
 / "+/:[1;(1 2 3*5)]"
 \d .unparse
-unparse:{$[tab x;tab0 x;sql x;sql0 x;break x;disp[first x;str first x;.z.s each 1_x];vchar x;str first x;str x]};
-disp:{[f;x;y]$[101h=t:type f;dmonad f;(2=count y)&102h=t;dinfix;dother][x;y]}; / display
-dmonad:{[f;x;y]$[(2=count y)|(f~(::))|enlist~f;dother[x;y];x," ",raze y]};
-dinfix:{$[""~y 0;dother;last[x]in"+-*%~!@#$^&|<>,?:";dwrap"";dwrap" "][x;y]};
-dother:{x,"[",(";"sv y),"]"};
-dwrap:{[d;x;y]d sv({f:first p:parse x;$[$[101h=t:type f;0;(3=count p)&102h=t;0;1];x;"(",x,")"]}y 0;x;y 1)};
+unparse:{[pt]$[tab pt;tab0 pt;sql pt;sql0 pt;break pt;disp[pt;.z.s each 1_pt];vchar pt;str first pt;str pt]}; / [parse tree]
+
+disp:{[pt;a]$[101h=t:type fn:first pt;dmonad fn;(fn~(each))|(2=count a)&102h=t;dinfix pt;dother][str first pt;a]}; / display[parse tree;args]
+dmonad:{[fn;fs;a]$[(fn~(::))|enlist~fn;dother[fs;a];2=count a;string[fn]sv a;dother[fs;a]]};      / [function;function string;args]
+dinfix:{[pt;fs;a]$[""~a 0;dother;last[fs]in"+-*%~!@#$^&|<>,?:=";dwrap[pt]"";dwrap[pt]" "][fs;a]}; / [parse tree;function string;args]
+dother:{[fs;a]fs,"[",(";"sv a),"]"};
+dwrap:{[pt;dl;fs;a]dl sv(dwrap0[pt 1]a 0;fs;a 1)}; / [parse tree;delim;function string;args]
+dwrap0:{[pt;lhs]$[$[enlist~fn:first pt;0;sql[pt]|(fn~(each))|(3=count pt)&type[fn]in 101 102h];"(",lhs,")";lhs]}; / [parse tree;lhs arg]
+
 break:{$[type x;0b;vchar x;0b;not x~()]};
 achar:(1#-11h)~type';  / char atom?
 vchar:(1# 11h)~type';  / char vector?
