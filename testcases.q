@@ -120,4 +120,6 @@ add"10(')[{x};{x+y}]'1 2 3"
 add"10(')[{x};{x+y}]'"
 add"(')[{x};{x+y}]'[10;]"
 add"(')[{x};{x+y}]'[;10]"
+/ the dream
+/add each {x{where not x~\:""}@[-5!;;""]each x}{@[x;where x like"k){*";{@[-1_x;2;:;" "]}]}string get .q
 \d .
