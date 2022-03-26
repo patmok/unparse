@@ -124,6 +124,7 @@ add"(;){x+y}"
 add"{x-y}[;1]4"
 add"{x+y}[;]1"
 add"{x+y}[2;3]6"
+add"select from bt where a in(exec aa from bt2 where i<5,i in til 5)"
 / the dream
 /add each {x{where not x~\:""}@[-5!;;""]each x}{@[x;where x like"k){*";{@[-1_x;2;:;" "]}]}string get .q
 \d .
